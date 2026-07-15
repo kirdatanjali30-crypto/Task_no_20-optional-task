@@ -1,0 +1,574 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyO6f+T8rww286qjFks76Y+q",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/kirdatanjali30-crypto/Task_no_20-optional-task/blob/main/Task20%3A-optional%20task\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "       Task 20:-optional task\n",
+        "\n",
+        "Name:-Kirdat Anjali Balasaheb\n",
+        "\n",
+        "College name:-T. B.Girvalakar polytechnic college,Ambajogai\n",
+        "\n",
+        "Domain name:-AI & ML Development\n",
+        "\n",
+        "Branch:- Computer Engineering"
+      ],
+      "metadata": {
+        "id": "G00bCi1EoRi3"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from google.colab import files\n",
+        "\n",
+        "uploaded = files.upload()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 144
+        },
+        "id": "3nAHeta3ow5a",
+        "outputId": "824790bf-0ba7-4bab-b1cd-06c370bc8f78"
+      },
+      "execution_count": 33,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.HTML object>"
+            ],
+            "text/html": [
+              "\n",
+              "     <input type=\"file\" id=\"files-0e7ed187-ad19-485c-addf-f9239a9e1a27\" name=\"files[]\" multiple disabled\n",
+              "        style=\"border:none\" />\n",
+              "     <output id=\"result-0e7ed187-ad19-485c-addf-f9239a9e1a27\">\n",
+              "      Upload widget is only available when the cell has been executed in the\n",
+              "      current browser session. Please rerun this cell to enable.\n",
+              "      </output>\n",
+              "      <script>// Copyright 2017 Google LLC\n",
+              "//\n",
+              "// Licensed under the Apache License, Version 2.0 (the \"License\");\n",
+              "// you may not use this file except in compliance with the License.\n",
+              "// You may obtain a copy of the License at\n",
+              "//\n",
+              "//      http://www.apache.org/licenses/LICENSE-2.0\n",
+              "//\n",
+              "// Unless required by applicable law or agreed to in writing, software\n",
+              "// distributed under the License is distributed on an \"AS IS\" BASIS,\n",
+              "// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n",
+              "// See the License for the specific language governing permissions and\n",
+              "// limitations under the License.\n",
+              "\n",
+              "/**\n",
+              " * @fileoverview Helpers for google.colab Python module.\n",
+              " */\n",
+              "(function(scope) {\n",
+              "function span(text, styleAttributes = {}) {\n",
+              "  const element = document.createElement('span');\n",
+              "  element.textContent = text;\n",
+              "  for (const key of Object.keys(styleAttributes)) {\n",
+              "    element.style[key] = styleAttributes[key];\n",
+              "  }\n",
+              "  return element;\n",
+              "}\n",
+              "\n",
+              "// Max number of bytes which will be uploaded at a time.\n",
+              "const MAX_PAYLOAD_SIZE = 100 * 1024;\n",
+              "\n",
+              "function _uploadFiles(inputId, outputId) {\n",
+              "  const steps = uploadFilesStep(inputId, outputId);\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  // Cache steps on the outputElement to make it available for the next call\n",
+              "  // to uploadFilesContinue from Python.\n",
+              "  outputElement.steps = steps;\n",
+              "\n",
+              "  return _uploadFilesContinue(outputId);\n",
+              "}\n",
+              "\n",
+              "// This is roughly an async generator (not supported in the browser yet),\n",
+              "// where there are multiple asynchronous steps and the Python side is going\n",
+              "// to poll for completion of each step.\n",
+              "// This uses a Promise to block the python side on completion of each step,\n",
+              "// then passes the result of the previous step as the input to the next step.\n",
+              "function _uploadFilesContinue(outputId) {\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  const steps = outputElement.steps;\n",
+              "\n",
+              "  const next = steps.next(outputElement.lastPromiseValue);\n",
+              "  return Promise.resolve(next.value.promise).then((value) => {\n",
+              "    // Cache the last promise value to make it available to the next\n",
+              "    // step of the generator.\n",
+              "    outputElement.lastPromiseValue = value;\n",
+              "    return next.value.response;\n",
+              "  });\n",
+              "}\n",
+              "\n",
+              "/**\n",
+              " * Generator function which is called between each async step of the upload\n",
+              " * process.\n",
+              " * @param {string} inputId Element ID of the input file picker element.\n",
+              " * @param {string} outputId Element ID of the output display.\n",
+              " * @return {!Iterable<!Object>} Iterable of next steps.\n",
+              " */\n",
+              "function* uploadFilesStep(inputId, outputId) {\n",
+              "  const inputElement = document.getElementById(inputId);\n",
+              "  inputElement.disabled = false;\n",
+              "\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  outputElement.innerHTML = '';\n",
+              "\n",
+              "  const pickedPromise = new Promise((resolve) => {\n",
+              "    inputElement.addEventListener('change', (e) => {\n",
+              "      resolve(e.target.files);\n",
+              "    });\n",
+              "  });\n",
+              "\n",
+              "  const cancel = document.createElement('button');\n",
+              "  inputElement.parentElement.appendChild(cancel);\n",
+              "  cancel.textContent = 'Cancel upload';\n",
+              "  const cancelPromise = new Promise((resolve) => {\n",
+              "    cancel.onclick = () => {\n",
+              "      resolve(null);\n",
+              "    };\n",
+              "  });\n",
+              "\n",
+              "  // Wait for the user to pick the files.\n",
+              "  const files = yield {\n",
+              "    promise: Promise.race([pickedPromise, cancelPromise]),\n",
+              "    response: {\n",
+              "      action: 'starting',\n",
+              "    }\n",
+              "  };\n",
+              "\n",
+              "  cancel.remove();\n",
+              "\n",
+              "  // Disable the input element since further picks are not allowed.\n",
+              "  inputElement.disabled = true;\n",
+              "\n",
+              "  if (!files) {\n",
+              "    return {\n",
+              "      response: {\n",
+              "        action: 'complete',\n",
+              "      }\n",
+              "    };\n",
+              "  }\n",
+              "\n",
+              "  for (const file of files) {\n",
+              "    const li = document.createElement('li');\n",
+              "    li.append(span(file.name, {fontWeight: 'bold'}));\n",
+              "    li.append(span(\n",
+              "        `(${file.type || 'n/a'}) - ${file.size} bytes, ` +\n",
+              "        `last modified: ${\n",
+              "            file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() :\n",
+              "                                    'n/a'} - `));\n",
+              "    const percent = span('0% done');\n",
+              "    li.appendChild(percent);\n",
+              "\n",
+              "    outputElement.appendChild(li);\n",
+              "\n",
+              "    const fileDataPromise = new Promise((resolve) => {\n",
+              "      const reader = new FileReader();\n",
+              "      reader.onload = (e) => {\n",
+              "        resolve(e.target.result);\n",
+              "      };\n",
+              "      reader.readAsArrayBuffer(file);\n",
+              "    });\n",
+              "    // Wait for the data to be ready.\n",
+              "    let fileData = yield {\n",
+              "      promise: fileDataPromise,\n",
+              "      response: {\n",
+              "        action: 'continue',\n",
+              "      }\n",
+              "    };\n",
+              "\n",
+              "    // Use a chunked sending to avoid message size limits. See b/62115660.\n",
+              "    let position = 0;\n",
+              "    do {\n",
+              "      const length = Math.min(fileData.byteLength - position, MAX_PAYLOAD_SIZE);\n",
+              "      const chunk = new Uint8Array(fileData, position, length);\n",
+              "      position += length;\n",
+              "\n",
+              "      const base64 = btoa(String.fromCharCode.apply(null, chunk));\n",
+              "      yield {\n",
+              "        response: {\n",
+              "          action: 'append',\n",
+              "          file: file.name,\n",
+              "          data: base64,\n",
+              "        },\n",
+              "      };\n",
+              "\n",
+              "      let percentDone = fileData.byteLength === 0 ?\n",
+              "          100 :\n",
+              "          Math.round((position / fileData.byteLength) * 100);\n",
+              "      percent.textContent = `${percentDone}% done`;\n",
+              "\n",
+              "    } while (position < fileData.byteLength);\n",
+              "  }\n",
+              "\n",
+              "  // All done.\n",
+              "  yield {\n",
+              "    response: {\n",
+              "      action: 'complete',\n",
+              "    }\n",
+              "  };\n",
+              "}\n",
+              "\n",
+              "scope.google = scope.google || {};\n",
+              "scope.google.colab = scope.google.colab || {};\n",
+              "scope.google.colab._files = {\n",
+              "  _uploadFiles,\n",
+              "  _uploadFilesContinue,\n",
+              "};\n",
+              "})(self);\n",
+              "</script> "
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Saving Food_Delivery_Times.csv to Food_Delivery_Times (1).csv\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "df = pd.read_csv(\"Food_Delivery_Times.csv\")\n",
+        "print(df.columns)\n",
+        "\n",
+        "X = df.drop(target, axis=1)\n",
+        "y = df[target]\n",
+        "\n",
+        "print(\"X shape:\", X.shape)\n",
+        "print(\"y shape:\", y.shape)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7kaNk-9Std6g",
+        "outputId": "ba501376-8fe7-4193-de95-73d9c5c8b87f"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Index(['Order_ID', 'Distance_km', 'Weather', 'Traffic_Level', 'Time_of_Day',\n",
+            "       'Vehicle_Type', 'Preparation_Time_min', 'Courier_Experience_yrs',\n",
+            "       'Delivery_Time_min'],\n",
+            "      dtype='object')\n",
+            "X shape: (1000, 8)\n",
+            "y shape: (1000,)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "cat_cols = X.select_dtypes(include=\"object\").columns\n",
+        "X = pd.get_dummies(X, columns=cat_cols, dtype=int)\n",
+        "print(X.head())"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vjHuRIWylDAk",
+        "outputId": "1eeed9dd-61dc-439b-ba33-9e5c3789c27a"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "   Order_ID  Distance_km  Preparation_Time_min  Courier_Experience_yrs  \\\n",
+            "0       522         7.93                    12                     1.0   \n",
+            "1       738        16.42                    20                     2.0   \n",
+            "2       741         9.52                    28                     1.0   \n",
+            "3       661         7.44                     5                     1.0   \n",
+            "4       412        19.03                    16                     5.0   \n",
+            "\n",
+            "   Weather_Clear  Weather_Foggy  Weather_Rainy  Weather_Snowy  Weather_Windy  \\\n",
+            "0              0              0              0              0              1   \n",
+            "1              1              0              0              0              0   \n",
+            "2              0              1              0              0              0   \n",
+            "3              0              0              1              0              0   \n",
+            "4              1              0              0              0              0   \n",
+            "\n",
+            "   Traffic_Level_High  Traffic_Level_Low  Traffic_Level_Medium  \\\n",
+            "0                   0                  1                     0   \n",
+            "1                   0                  0                     1   \n",
+            "2                   0                  1                     0   \n",
+            "3                   0                  0                     1   \n",
+            "4                   0                  1                     0   \n",
+            "\n",
+            "   Time_of_Day_Afternoon  Time_of_Day_Evening  Time_of_Day_Morning  \\\n",
+            "0                      1                    0                    0   \n",
+            "1                      0                    1                    0   \n",
+            "2                      0                    0                    0   \n",
+            "3                      1                    0                    0   \n",
+            "4                      0                    0                    1   \n",
+            "\n",
+            "   Time_of_Day_Night  Vehicle_Type_Bike  Vehicle_Type_Car  \\\n",
+            "0                  0                  0                 0   \n",
+            "1                  0                  1                 0   \n",
+            "2                  1                  0                 0   \n",
+            "3                  0                  0                 0   \n",
+            "4                  0                  1                 0   \n",
+            "\n",
+            "   Vehicle_Type_Scooter  \n",
+            "0                     1  \n",
+            "1                     0  \n",
+            "2                     1  \n",
+            "3                     1  \n",
+            "4                     0  \n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "from sklearn.preprocessing import StandardScaler\n",
+        "\n",
+        "df = pd.read_csv(\"Food_Delivery_Times.csv\")\n",
+        "\n",
+        "target = \"Delivery_Time_min\"\n",
+        "X = df.drop([target, 'Order_ID'], axis=1) # Order_ID nakko\n",
+        "y = df[target]\n",
+        "\n",
+        "num_cols = [\"Distance_km\", \"Preparation_Time_min\", \"Courier_Experience_yrs\"]\n",
+        "\n",
+        "for col in num_cols:\n",
+        "    X[col] = pd.to_numeric(X[col], errors=\"coerce\")\n",
+        "\n",
+        "temp_df = pd.concat([X, y], axis=1).dropna()\n",
+        "X = temp_df.drop(target, axis=1)\n",
+        "y = temp_df[target]\n",
+        "\n",
+        "\n",
+        "scaler = StandardScaler()\n",
+        "X[num_cols] = scaler.fit_transform(X[num_cols])\n",
+        "\n",
+        "\n",
+        "print(\"X shape:\", X.shape)\n",
+        "print(\"y shape:\", y.shape)\n",
+        "print(X.head())"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "RcbCm7DItwrz",
+        "outputId": "d2760b26-c13e-404c-861f-3314dd8c5658"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "X shape: (883, 7)\n",
+            "y shape: (883,)\n",
+            "   Distance_km Weather Traffic_Level Time_of_Day Vehicle_Type  \\\n",
+            "0    -0.373166   Windy           Low   Afternoon      Scooter   \n",
+            "1     1.120143   Clear        Medium     Evening         Bike   \n",
+            "2    -0.093501   Foggy           Low       Night      Scooter   \n",
+            "3    -0.459353   Rainy        Medium   Afternoon      Scooter   \n",
+            "4     1.579216   Clear           Low     Morning         Bike   \n",
+            "\n",
+            "   Preparation_Time_min  Courier_Experience_yrs  \n",
+            "0             -0.691730               -1.246308  \n",
+            "1              0.410793               -0.903903  \n",
+            "2              1.513315               -1.246308  \n",
+            "3             -1.656437               -1.246308  \n",
+            "4             -0.140469                0.123312  \n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "y = pd.to_numeric(df[\"Delivery_Time_min\"], errors=\"coerce\")\n",
+        "df = df.dropna()\n",
+        "\n",
+        "\n",
+        "X = df.drop([\"Delivery_Time_min\", \"Order_ID\"], axis=1)\n",
+        "y = df[\"Delivery_Time_min\"]\n",
+        "\n",
+        "X = pd.get_dummies(X, drop_first=True)\n",
+        "\n",
+        "\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X, y, test_size=0.2, random_state=42\n",
+        ")\n",
+        "\n",
+        "model = LinearRegression()\n",
+        "model.fit(X_train, y_train)\n",
+        "\n",
+        "print(\"Intercept:\", model.intercept_)\n",
+        "print(\"Coefficients:\", model.coef_)\n",
+        "print(\"R2 Score:\", model.score(X_test, y_test))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "c-8h4Bn4t0E2",
+        "outputId": "4e30bd2f-9298-4b60-b594-90101066a4f1"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Intercept: 18.35157557849538\n",
+            "Coefficients: [  2.97964109   0.92622247  -0.61154817   8.59425492   4.76907154\n",
+            "   9.2030044    2.53019578 -12.52138548  -6.89129546   1.03308095\n",
+            "  -0.24710523  -1.31510656   0.86783099  -0.75284367]\n",
+            "R2 Score: 0.83253145823043\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "y_pred = model.predict(X_test)\n",
+        "comparison = pd.DataFrame({\n",
+        "    \"Actual\": y_test.values,\n",
+        "    \"Predicted\": y_pred\n",
+        "})\n",
+        "print(comparison.head(10))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7qZS6prgt7_6",
+        "outputId": "d48be9ea-8c11-4ae9-c738-9671da08e41c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "   Actual  Predicted\n",
+            "0      36  35.591625\n",
+            "1      27  27.038850\n",
+            "2      49  47.386922\n",
+            "3      89  87.754015\n",
+            "4      54  55.785684\n",
+            "5      73  91.656380\n",
+            "6      70  76.109314\n",
+            "7      47  52.159783\n",
+            "8      62  65.917460\n",
+            "9      73  61.592520\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "from sklearn.metrics import r2_score\n",
+        "r2 = r2_score(y_test, y_pred)\n",
+        "print(\"R² Score:\", r2)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xxCEkATBunpH",
+        "outputId": "3869804a-32a8-414a-83b2-b78ad1402a40"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "R² Score: 0.83253145823043\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import joblib\n",
+        "joblib.dump(model, \"LR_insurance.pkl\")\n",
+        "joblib.dump(scaler, \"scaler.pkl\")\n",
+        "joblib.dump(X.columns.tolist(), \"columns.pkl\")\n",
+        "print(\"Model and preprocessing objects saved successfully!\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_IsMYosGmZQW",
+        "outputId": "61b8da34-feed-4b1e-8d10-e7723f5c1d70"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Model and preprocessing objects saved successfully!\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
